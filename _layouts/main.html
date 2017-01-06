@@ -5,18 +5,13 @@ layout: default
 <div class="container">
   <div class="row">
     <div class="col content">
-
-      <p class="desc">
-      </p>
-
       {{ content }}
-
     </div>
 
+    <!-- Sidebar content -->
     <div class="col sidebar">
       <div class="row">
-        <br>
-        <div class="col info">
+        <div class="col sideri">
           <h4>Recent Posts</h4>
           <ul class="popular-posts">
             {% for post in site.categories['blog'] limit:4 %}
@@ -30,9 +25,10 @@ layout: default
             </li>
             {% endfor %}
           </ul>
-        </div>
+        </div> <!-- col sideri -->
 
-    </div>
-  </div> <!--col sidebar-->
-</div> <!-- row -->
+
+      </div> <!-- col sideri row -->
+    </div> <!--col sidebar-->
+  </div> <!-- container row -->
 </div> <!-- container -->

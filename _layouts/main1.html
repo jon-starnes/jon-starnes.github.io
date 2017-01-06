@@ -27,7 +27,12 @@ layout: default
           </ul>
         </div> <!-- col sideri -->
 
-
+        <div class="col sideri">
+          {% for post in site.categories['news'] limit:1 %}
+          <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
+          {{ post.content }}
+          {% endfor %}
+        </div> <!-- col sideri -->
       </div> <!-- col sideri row -->
     </div> <!--col sidebar-->
   </div> <!-- container row -->
