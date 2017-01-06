@@ -89,6 +89,12 @@ main {
 time {
 	color: #898989;
 }
+blockquote {
+	background: $blockquote;
+	padding: 10px;
+	margin: 10px;
+	font-size: 1.0em;
+}
 
 
 /* Aside */
