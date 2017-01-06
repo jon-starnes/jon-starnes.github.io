@@ -5,32 +5,10 @@ layout: main
 <div class="container">
   <div class="row">
 
-    <h2>What is Open Data?</h2>
-
     {% for post in site.categories['news'] limit:1 %}
       <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
       {{ post.content }}
     {% endfor %}
 
-    <p>
-      What is open data? What does that mean? The concept has been around since before the days of GPL and open source requirements, but the formal definition is relatively new. Open data is data that can be accessed and used for any reason by anyone, subject only a social contract calling for basic attribution requirements. At the very least this may require a 'share and share alike" agreement. One simply doesn't walk into an open source provider and take at will without a nod back and a payment forward.
-    </p>
-
-    {% for post in site.categories['feature'] limit:1 %}
-    <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
-    {{ post.content }}
-    {% endfor %}
-
-    <p>
-      <a href="http://opendefinition.org/od/2.1/en/">Open Definition 2.0</a> gives the following summary for the 'open' concept:
-    </p>
-
-    <p class="desc">
-      <blockquote>
-        "Knowledge is open if anyone is free to access, use, modify, and share it — subject, at most, to measures that preserve provenance and openness."
-      </blockquote>
-    </p>
-
   </div>
-
 </div>
