@@ -32,22 +32,6 @@ layout: default
           </ul>
         </div>
 
-        <div class="spacing"></div>
-        <div class="col info">
-          <h4>Site Info</h4>
-
-          {% for post in site.categories['About'] %}
-          <h4><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h4>
-          <p class="desc">
-            <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-          </p>
-          {{ post.content | truncatewords:75}}
-          <p><a href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
-          <div class="spacing"></div>
-          {% endfor %}
-
-        </p>
-      </div>
     </div>
   </div> <!--col sidebar-->
 </div> <!-- row -->

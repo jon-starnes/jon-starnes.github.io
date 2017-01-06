@@ -1,5 +1,5 @@
 ---
-layout: main1
+layout: post
 title:  "Resources"
 date:   2016-08-23 00:10:45
 tags: [GPL, news, Open Definition 2.0]

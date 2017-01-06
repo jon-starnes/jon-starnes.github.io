@@ -5,14 +5,10 @@ layout: default
 <div class="container">
   <div class="row">
     <div class="col content">
-
-      <p class="desc">
-      </p>
-
       {{ content }}
-
     </div>
 
+<!-- Sidebar content -->
     <div class="col sidebar">
       <div class="row">
         <br>
@@ -30,25 +26,8 @@ layout: default
             </li>
             {% endfor %}
           </ul>
-        </div>
-
-        <div class="spacing"></div>
-        <div class="col sideri">
-          <h4>Site Info</h4>
-
-          {% for post in site.categories['About'] %}
-          <h4><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h4>
-          <p class="desc">
-            <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-          </p>
-          {{ post.content | truncatewords:75}}
-          <p><a href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
-          <div class="spacing"></div>
-          {% endfor %}
-
-        </p>
-      </div>
-    </div>
+        </div> <!-- col sideri -->
+    </div> <!-- sidebar row -->
   </div> <!--col sidebar-->
-</div> <!-- row -->
+</div> <!-- container row -->
 </div> <!-- container -->
