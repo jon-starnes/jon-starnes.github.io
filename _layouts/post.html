@@ -1,0 +1,18 @@
+---
+layout: main
+---
+
+<!--
+<h2>{{ page.title }}</h2>
+<time>{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</time>
+
+{{ content }}
+-->
+<p>
+  <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ page.title }}</h3></a>
+</p>
+<p class="desc"><csmall>{{ page.date | date: "%b %-d, %Y" }}. | By: {{ page.author }}</csmall></p>
+
+{{ content }}
+
+{% include disqus.html %}

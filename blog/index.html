@@ -1,0 +1,16 @@
+---
+layout: main
+---
+
+	<h3>Recent articles</h3>
+	<div class="hline"></div>
+	<div class="spacing"></div>
+	{% for post in site.categories['blog'] %}
+	<h4><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h4>
+	<p class="desc">
+		<time>{{ post.date | date: "%b %-d, %Y" }}</time>
+	</p>
+	{{ post.content | truncatewords:100}}
+	<p><a href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
+	<div class="spacing"></div>
+	{% endfor %}

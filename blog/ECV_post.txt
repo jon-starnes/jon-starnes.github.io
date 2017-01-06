@@ -1,0 +1,11 @@
+This map shows states that Trump and Clinton  won for electoral votes in 2016, and it also shows the unemployment rate (UER) for every county in the US 50. The scale starts at 0-2% and increases in increments of two, the highest unemployment rate ranges from 10-25%. The mean and max unemployment were very similar for Trump (4.9%, 21%) and Clinton (4.8, 22%), but the spread among states is noticeably different. 
+
+The high unemployment (>10%) in Clinton's states were only in California in Imperial and Tulare Counties. Counties with unemployment higher than 10% were peppered throughout the states Trump won. Even though Clinton took California, Trump still won the majority of votes in several counties, including in Tulare County. More in progress.
+
+
+
+References:
+http://www.politico.com/2016-election/results/map/president/california/
+
+
+

@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div class="container">
+  <div class="row">
+    <div class="col-2-md">
+
+      <p class="desc">
+      </p>
+
+      {{ content }}
+
+    </div>
+<!--
+    <div class="col sidebar">
+      <div class="row">
+        <br>
+
+        <div class="col info">
+          <h4>Popular tags</h4>
+          <p>
+            {% for tags in site.tags %}{% unless tags.first == "blog" or tags.first == "project" or tags.first == "question" %}
+            <a class="btn btn-theme" href="{{ '/tags/#'  | prepend: site.baseurl  }}{{ tags | first }}" role="button">{{ tags | first | capitalize }} ({{ tags | last | size }})</a>
+            {% endunless %}{% endfor %}
+          </p>
+        </div>
+      </div>
+    </div> <!--col sidebar-->
+  </div> <!-- row -->
+</div> <!-- container -->
