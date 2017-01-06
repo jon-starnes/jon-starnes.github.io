@@ -12,7 +12,7 @@ body {
 /* Container and layout for grids
 */
 .container {
-	max-width: 90em;
+	max-width: 100em;
 }
 /* you only need width to set up columns; all columns are 100%-width by default, so we start
 	 from a one-column mobile layout and gradually improve it according to available screen space */
