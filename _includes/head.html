@@ -17,26 +17,30 @@
 	<!-- a grid framework in 250 bytes? are you kidding me?! -->
 	<link rel="stylesheet" href="{{ "/css/grid.css" | prepend: site.baseurl }}">
 
-	<!--
+
 	<style>
 		.container { max-width: 90em; }
 		/* you only need width to set up columns; all columns are 100%-width by default, so we start
 		   from a one-column mobile layout and gradually improve it according to available screen space */
-		@media only screen and (min-width: 34em) {
-			.feature, .info { width: 50%; }
-		}
-		@media only screen and (min-width: 54em) {
-			.content { width: 66.66%; }
-			.sidebar { width: 33.33%; }
-			.info    { width: 100%;   }
-		}
-		@media only screen and (min-width: 76em) {
-			.content { width: 58.33%; } /* 7/12 */
-			.sidebar { width: 41.66%; } /* 5/12 */
-			.info    { width: 50%;    }
-		}
+
+			 @media only screen and (min-width: 34em) {
+		 		.feature, .info { width: 50%; }
+		 		.sideri					{ width: 50%; }
+		 	}
+		 	@media only screen and (min-width: 54em) {
+		 		.content { width: 66.66%; }
+		 		.sidebar { width: 33.33%; }
+		 		.info    { width: 100%;   }
+		 		.sideri  { width: 50%; 		}
+		 	}
+		 	@media only screen and (min-width: 76em) {
+		 		.content { width: 58.33%; } /* 7/12 */
+		 		.sidebar { width: 41.66%; } /* 5/12 */
+		 		.info    { width: 50%;    }
+		 		.sideri  { width: 25%; 		}
+		 	}
 	</style>
--->
+
 
 	<!-- general boring stuff and some visual tweaks -->
 	<link rel="stylesheet" href="{{ "/css/screen.css" | prepend: site.baseurl }}">
