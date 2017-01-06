@@ -12,7 +12,7 @@ body {
 /* Container and layout for grids
 */
 .container {
-	max-width: 100em;
+	max-width: 95em;
 }
 /* you only need width to set up columns; all columns are 100%-width by default, so we start
 	 from a one-column mobile layout and gradually improve it according to available screen space */
@@ -92,12 +92,17 @@ time {
 	color: #898989;
 }
 blockquote {
-	background: $blockquote;
-	padding: 10px;
-	margin: 10px;
-	font-size: 1.0em;
+background: $blockquote;
+font-family: Georgia, serif;
+font-size: 18px;
+font-style: italic;
+width: 500px;
+margin: 0.25em 0;
+padding: 0.25em 40px;
+line-height: 1.20;
+position: relative;
+color: #383838;
 }
-
 
 /* Aside */
 aside {
