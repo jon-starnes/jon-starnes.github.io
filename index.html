@@ -1,25 +1,26 @@
 ---
-layout: default
+layout: main
 ---
 
-    {% for post in site.posts.categories['news'] %}
-      <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
-      {{ post.content }}
-    {% endfor %}
+<div class="container">
+  <div class="row">
+      <p>
+          What is open data? What does that mean? The concept has been around since before the days of GPL and open source requirements, but the formal definition is relatively new. Open data is data that can be accessed and used for any reason by anyone, subject only a social contract calling for basic attribution requirements. At the very least this may require a 'share and share alike" agreement. One simply doesn't walk into an open source provider and take at will without a nod back and a payment forward.
+      </p>
 
-    What is open data? What does that mean? The concept has been around since before the days of GPL and open source requirements, but the formal definition is relatively new. Open data is data that can be accessed and used for any reason by anyone, subject only a social contract calling for basic attribution requirements. At the very least this may require a 'share and share alike" agreement. One simply doesn't walk into an open source provider and take at will without a nod back and a payment forward.
+      {% for post in site.categories['feature'] limit:1 %}
+        <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
+        {{ post.content }}
+      {% endfor %}
 
-    [Open Definition 2.0](http://opendefinition.org/od/2.1/en/) gives the following summary for the 'open' concept:
+      <p>
+      <a href="http://opendefinition.org/od/2.1/en/">Open Definition 2.0</a> gives the following summary for the 'open' concept:
+      </p>
 
-    > "Knowledge is open if anyone is free to access, use, modify, and share it — subject, at most, to measures that preserve provenance and openness."
+      <blockquote>
+        "Knowledge is open if anyone is free to access, use, modify, and share it — subject, at most, to measures that preserve provenance and openness."
+      </blockquote>
 
-    This site seeks to acknowledge open data ideals in all ways foreseeable. Beyond acknowledging open data sources, this site also actively praises the recent open data initiatives in the US as well as others elsewhere in the world that we hope to discover soon. We also aim to lead by example. That is why all data and sources featured here will be made readily available either on the site or by special request.
+    </div>
 
-    ---
-
-
-    __References:__
-
-    1. [Open data From Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Open_data)
-
-    2. [Open Definition 2.0](http://opendefinition.org/od/2.1/en/)
+  </div>
