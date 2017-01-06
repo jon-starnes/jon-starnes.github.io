@@ -3,7 +3,7 @@ layout: post
 title:  "Resources"
 date:   2016-08-23 00:10:45
 tags: [GPL, news, Open Definition 2.0]
-categories: [news, open data, Page, repositories, resources]
+categories: [open data, page, repositories, resources]
 ---
 
 #### Open Data Repositories

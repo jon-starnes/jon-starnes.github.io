@@ -4,7 +4,7 @@ title:  "About"
 author: Jon Starnes
 date:   2016-08-23 00:10:45
 tags: [GPL, Open Data, Open Definition 2.0]
-categories: [About, Page]
+categories: [about, page]
 ---
 
 #### What is open data?  
