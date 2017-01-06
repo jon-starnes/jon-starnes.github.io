@@ -28,10 +28,16 @@ layout: default
         </div> <!-- col info -->
 
         <div class="col info">
-          {% for post in site.categories['news'] limit:1 %}
-          <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
-          {{ post.content }}
-          {% endfor %}
+          {% for post in site.categories['about'] %}
+        	<h4><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h4>
+        	<p class="desc">
+        		<time>{{ post.date | date: "%b %-d, %Y" }}</time>
+        	</p>
+        	{{ post.content | truncatewords:75}}
+        	<p><a href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
+        	<div class="spacing"></div>
+        	{% endfor %}
+
         </div> <!-- col info -->
       </div> <!-- col info row -->
     </div> <!--col sidebar1-->
