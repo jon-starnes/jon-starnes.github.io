@@ -4,7 +4,7 @@ body {
 	margin: 0;
 }
 a {
-	color: #06f;
+	color: $link-color;
 }
 h1 {
 	font-size: 2.2em;
