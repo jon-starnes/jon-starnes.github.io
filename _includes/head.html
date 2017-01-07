@@ -22,24 +22,24 @@
 		.container { max-width: 95em; }
 		/* you only need width to set up columns; all columns are 100%-width by default, so we start
 		   from a one-column mobile layout and gradually improve it according to available screen space */
-			 media only screen and (min-width: 34em) {
+			 @media only screen and (min-width: 34em) {
 			 	.feature, .info { width: 50%; }
 			 }
 			 @media only screen and (min-width: 54em) {
 			 	.content { width: 66.66%; }
 			 	.sidebar { width: 33.33%; }
 			 	.info    { width: 100%;   }
-			 	.content1 { width: 58.33%; 	}
-			 	.sidebar1	{ width: 13.89%; 	}
-			 	.sidebar2	{ width: 27.77%; 	}
+			 	.content1 { width: 50%; 	}
+			 	.sidebar1	{ width: 8.33%; 	}
+			 	.sidebar2	{ width: 25%; 	}
 			 }
 			 @media only screen and (min-width: 76em) {
 			 	.content { width: 58.33%; } /* 7/12 */
 			 	.sidebar { width: 41.66%; } /* 5/12 */
 			 	.info    { width: 50%;    }
-			 	.content1 { width: 58.33%; 	}
-			 	.sidebar1	{ width: 13.89%; 	}
-			 	.sidebar2	{ width: 27.77%; 	}
+			 	.content1 { width: 66.66%; 	}
+			 	.sidebar1	{ width: 8.33%; 	}
+			 	.sidebar2	{ width: 25%; 	}
 			 }
 	</style>
 
