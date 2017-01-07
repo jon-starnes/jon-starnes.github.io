@@ -9,7 +9,7 @@ layout: default
     <!-- Sidebar1 content -->
     <div class="col sidebar1">
       <div class="row">
-        <div class="col info">
+        <div class="col feature">
           <p></p>
         </div>
       </div> <!-- col info row -->
@@ -37,18 +37,6 @@ layout: default
             </li>
             {% endfor %}
           </ul>
-        </div> <!-- col info -->
-
-        <div class="col info">
-          {% for page in site.categories['about'] %}
-          <h4><a href="{{ post.url | prepend: site.baseurl }}">{{ page.title }}</a></h4>
-          <p class="desc">
-            <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-          </p>
-          {{ page.content | truncatewords:75}}
-          <p><a href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
-          <div class="spacing"></div>
-          {% endfor %}
         </div> <!-- col info -->
       </div> <!-- col info row -->
     </div> <!--col sidebar1-->
