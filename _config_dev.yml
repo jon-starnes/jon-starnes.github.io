@@ -9,7 +9,7 @@
 title: Jon Starnes - Blog, News and Resources for and by Open Data.
 email: jstarne4@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  This is a place for my blog and portal to data science projects and portfolio pages
+  This is a place for my blog, data science projects, and info on Open Data.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://localhost:4000" # the base hostname & protocol for your site
 twitter_username: starj0n
