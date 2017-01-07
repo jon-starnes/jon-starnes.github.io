@@ -1,11 +1,11 @@
 /*
 body {
-	margin: 0;
-	color: $font-color;
-	font-family: $font-style;
-	font-size: 1.0em;
-	line-height: 1.6;
-	-webkit-font-smoothing: antialiased;
+margin: 0;
+color: $font-color;
+font-family: $font-style;
+font-size: 1.0em;
+line-height: 1.6;
+-webkit-font-smoothing: antialiased;
 }
 */
 
@@ -15,61 +15,63 @@ body {
 	max-width: 95em;
 }
 /* you only need width to set up columns; all columns are 100%-width by default, so we start
-	 from a one-column mobile layout and gradually improve it according to available screen space */
+from a one-column mobile layout and gradually improve it according to available screen space */
 /*	 .container {
-	 	max-width: $content-width;
-	 	margin: 0 auto;
-	 }
+max-width: $content-width;
+margin: 0 auto;
+}
 */
-
+/*
+you only need width to set up columns; all columns are 100%-width by default, so we start
+from a one-column mobile layout and gradually improve it according to available screen space */
 @media only screen and (min-width: 34em) {
 	.feature, .info { width: 50%; }
-	.sidebar1				{ width: 25%; }
 }
 @media only screen and (min-width: 54em) {
 	.content { width: 66.66%; }
 	.sidebar { width: 33.33%; }
 	.info    { width: 100%;   }
+	.content1 { width: 50%; 	}
 	.sidebar1	{ width: 25%; 	}
 }
 @media only screen and (min-width: 76em) {
 	.content { width: 58.33%; } /* 7/12 */
 	.sidebar { width: 41.66%; } /* 5/12 */
 	.info    { width: 50%;    }
-	.sidebar1	{ width: 33.33%; 	}
+	.content1 { width: 50%; }
+	.sidebar1	{ width: 25%; }
 }
-
 
 /* Fonts
 h1,
 h2,
 h3 {
-	font-weight: 600;
-	color: $heading-font-color;
-	font-family: $heading-font;
-	line-height: 1.5;
+font-weight: 600;
+color: $heading-font-color;
+font-family: $heading-font;
+line-height: 1.5;
 }
 h1 {
-	color: $main;
-	font-size: 2.5em;
-	a,
-	a:visited {
-		text-decoration: none;
-		color: $main;
-	}
+color: $main;
+font-size: 2.5em;
+a,
+a:visited {
+text-decoration: none;
+color: $main;
+}
 }
 h2 {
-	font-size: 2em;
+font-size: 2em;
 }
 a,
 a:visited {
-	color: $link-color;
-	text-decoration: underline;
-	font-weight: bold;
+color: $link-color;
+text-decoration: underline;
+font-weight: bold;
 }
 a:hover {
-	color: $link-hover-color;
-	text-decoration: underline;
+color: $link-hover-color;
+text-decoration: underline;
 }
 */
 
@@ -92,15 +94,15 @@ time {
 	color: #898989;
 }
 blockquote {
-font-family: Georgia, serif;
-font-size: 18px;
-font-style: italic;
-width: 500px;
-margin: 0.25em 0;
-padding: 0.25em 40px;
-line-height: 1.20;
-position: relative;
-color: #383838;
+	font-family: Georgia, serif;
+	font-size: 18px;
+	font-style: italic;
+	width: 500px;
+	margin: 0.25em 0;
+	padding: 0.25em 40px;
+	line-height: 1.20;
+	position: relative;
+	color: #383838;
 }
 
 /* Aside */
