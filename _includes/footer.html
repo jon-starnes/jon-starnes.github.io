@@ -3,17 +3,7 @@
   <div class="row">
 
     <div class="col sidebar1">
-        {% if site.twitter_username %}
-        <a href="https://twitter.com/{{ site.twitter_username }}">
-          <i class="fa fa-twitter"></i> Twitter
-        </a>
-        {% endif %}
-
-      {% if site.github_username %}
-      <a href="https://github.com/{{ site.github_username }}">
-        <i class="fa fa-github"></i> GitHub
-      </a>
-      {% endif %}
+      <p></p>
     </div>
 
     <div class="col sidebar1">
@@ -23,6 +13,17 @@
     </div>
 
     <div class="col sidebar1">
+      {% if site.twitter_username %}
+      <a href="https://twitter.com/{{ site.twitter_username }}">
+        <i class="fa fa-twitter"></i> Twitter
+      </a>
+      {% endif %}
+
+    {% if site.github_username %}
+    <a href="https://github.com/{{ site.github_username }}">
+      <i class="fa fa-github"></i> GitHub
+    </a>
+    {% endif %}
       <p class = "desc">{{ site.description }}</p>
     </div>
 
