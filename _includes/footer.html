@@ -13,19 +13,21 @@
     </div>
 
     <div class="col sidebar1">
-      {% if site.twitter_username %}
-      <a href="https://twitter.com/{{ site.twitter_username }}">
-        <i class="fa fa-twitter"></i> Twitter
-      </a>
-      {% endif %}
+      <p class = "desc">
+        {% if site.twitter_username %}
+        <a href="https://twitter.com/{{ site.twitter_username }}">
+          <i class="fa fa-twitter"></i> Twitter
+        </a>
+        {% endif %}
 
-    {% if site.github_username %}
-    <p class = "desc">
-    <a href="https://github.com/{{ site.github_username }}">
-      <i class="fa fa-github"></i> GitHub
-    </a>
-    {% endif %}
-      {{ site.description }}</p>
+        {% if site.github_username %}
+        <a href="https://github.com/{{ site.github_username }}">
+          <i class="fa fa-github"></i> GitHub
+        </a>
+        {% endif %}
+        <br>
+        {{ site.description }}
+      </p>
     </div>
 
   </div><!--/row -->
