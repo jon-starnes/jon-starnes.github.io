@@ -50,6 +50,7 @@ iframe {
 }
 .desc {
 	color: #93A3B1;
+	font-size: 0.8125em;
 }
 .intro {
 	border-bottom: 1px dotted #bbb;
