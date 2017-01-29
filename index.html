@@ -2,7 +2,7 @@
 layout: main1
 ---
 
-{% for post in site.categories['news'] limit:1 %}
+{% for post in site.categories['blogNew'] limit:1 %}
 <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
 {{ post.content }}
 {% endfor %}
