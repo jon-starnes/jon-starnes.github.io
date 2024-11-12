@@ -1,0 +1,56 @@
+body {
+  background-color: #eee; /* light gray background */
+  color: #333; /* black text */
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+header {
+  background-color: #ddd; /* darker gray background for header */
+  padding: 20px;
+  display: flex; /* arrange elements horizontally */
+  justify-content: space-between; /* space elements evenly */
+  align-items: center; /* align elements vertically */
+}
+
+.main-title {
+  font-size: 2em;
+  margin: 0;
+}
+
+.menu-toggle {
+  background-color: #f80; /* orange accent color */
+  color: #fff; /* white text */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; /* styling for clickable button */
+}
+
+.topbar-menu {
+  background-color: #ddd; /* same gray for menu bar */
+  padding: 10px 0;
+  list-style: none; /* remove default bullet points */
+  margin: 0;
+  position: absolute; /* make menu absolute for positioning */
+  top: 100%; /* position menu below header */
+  left: 0; /* position menu on the left side */
+  width: 100%; /* menu full width */
+  text-align: center; /* center align links */
+  transition: all 0.3s ease-in-out; /* smooth transition for menu show/hide */
+  opacity: 0; /* hide menu initially */
+  pointer-events: none; /* disable menu interaction initially */
+}
+
+.topbar-menu.active {
+  opacity: 1; /* show menu on click */
+  pointer-events: auto; /* allow menu interaction on click */
+}
+
+.topbar-menu a {
+  color: #333; /* black text for links */
+  text-decoration: none; /* remove underline */
+  padding: 10px;
+  display: block; /* make links full width */
+  transition: all 0.3s ease-in-out;
