@@ -1,71 +1,72 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: #FBF8F2; /* Less saturated warm light beige */
-  color: #797979; /* Less saturated dark gray */
+  background-color: #f0f0f0; /* Light gray background */
+  color: #333; /* Dark gray text */
   margin: 0;
   padding: 0;
 }
 
 header {
-  background-color: #4B0082; /* Indigo */
-  color: #FFD700; /* Gold */
-  border-bottom: 4px solid #ccc;
+  background-color: #336699; /* Medium blue header */
+  color: #fff; /* White text */
+  border-bottom: 2px solid #ccc;
   padding: 10px;
 }
 
 .main-title {
   font-size: 2em;
-  margin-left: 20px; /* Adjusted margin */
+  margin-left: 20px;
 }
 
 .wrapper {
   display: flex;
-  background-color: transparent; /* Removed background color */
-  justify-content: flex-start; /* Move content to left */
+  background-color: transparent;
+  justify-content: flex-start;
   align-items: flex-start;
   margin: 0 auto;
   padding: 20px;
 }
 
 aside {
-  width: 200px; /* Fixed width for menu */
-  background-color: #483D8B; /* Dark slate blue */
-  color: #F5DEB3; /* Wheat */
+  width: 200px;
+  background-color: #f0f0f0; /* Light gray background for side menu */
+  color: #333; /* Dark gray text */
   border-right: 2px solid #ccc;
   padding: 10px;
 }
 
 aside ul {
   list-style: none;
+  padding: 0;
 }
 
 aside ul li a {
   display: block;
   padding: 10px;
-  color: #F5DEB3; /* Wheat */
+  color: #333;
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 aside ul li a:hover {
-  background-color: #5a5096; /* Darker shade of blue */
+  background-color: #e6e6e6; /* Lighter gray for hover effect */
 }
 
 main {
-  /* Center the main content area */
-  flex: 1; /* Take up remaining space */
-  padding: 10px; /* Add some padding */
+  flex: 1;
+  padding: 10px;
+  background-color: #fff; /* White background for content area */
 }
 
 #markdown-container {
-  /* Inherit font styles from the body */
   font-family: inherit;
   line-height: inherit;
 }
 
 footer {
-  background-color: #241e45; /* Darker slate blue */
-  color: #FFD700; /* Gold */
+  background-color: #336699; /* Medium blue footer */
+  color: #fff; /* White text */
   border-top: 2px solid #ccc;
   text-align: center;
+}
