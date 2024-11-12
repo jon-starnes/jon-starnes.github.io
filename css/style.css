@@ -1,3 +1,4 @@
+/* Main */ 
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -70,3 +71,26 @@ footer {
   border-top: 2px solid #ccc;
   text-align: center;
 }
+
+
+input {
+    margin: 10px;
+    padding: 5px;
+    width: 150px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: left;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
