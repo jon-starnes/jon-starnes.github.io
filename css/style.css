@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  line-height: 1.6; /* Adjusted line-height */
+  line-height: 1.6;
   background-color: #FBF8F2; /* Less saturated warm light beige */
   color: #797979; /* Less saturated dark gray */
   margin: 0;
@@ -14,35 +14,6 @@ header {
   padding: 10px;
 }
 
-.topbar-menu {
-  display: flex;
-  flex-direction: column; /* Make the menu vertical */
-  align-items: flex-start;
-  background-color: #4B0082; /* Match the header background */
-  padding: 10px;
-}
-
-.topbar-menu a {
-  display: block;
-  padding: 10px;
-  color: #FFD700; /* Gold */
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.topbar-menu a:hover {
-  background-color: #5a5096; /* Darker shade of blue */
-}
-
-.topbar-menu a:hover {
-  text-shadow: 0 0 6px #FFD700, 0 0 8px #FFD700, 0 0 13px #FFD700, 0 0 21px #FFD700;
-}
-
-.sidemenu1 {
-  /* ... other styles ... */
-  border-right: 2px solid #ccc;
-}
-
 .main-title {
   font-size: 2em;
   margin-left: 20px; /* Adjusted margin */
@@ -51,10 +22,10 @@ header {
 .wrapper {
   display: flex;
   background-color: transparent; /* Removed background color */
-  justify-content: space-between; /* Adjusted for better spacing */
+  justify-content: flex-start; /* Move content to left */
   align-items: flex-start;
   margin: 0 auto;
-  padding: 20px; /* Increased padding */
+  padding: 20px;
 }
 
 aside {
@@ -71,4 +42,30 @@ aside ul {
 
 aside ul li a {
   display: block;
-  padding: 1
+  padding: 10px;
+  color: #F5DEB3; /* Wheat */
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+aside ul li a:hover {
+  background-color: #5a5096; /* Darker shade of blue */
+}
+
+main {
+  /* Center the main content area */
+  flex: 1; /* Take up remaining space */
+  padding: 10px; /* Add some padding */
+}
+
+#markdown-container {
+  /* Inherit font styles from the body */
+  font-family: inherit;
+  line-height: inherit;
+}
+
+footer {
+  background-color: #241e45; /* Darker slate blue */
+  color: #FFD700; /* Gold */
+  border-top: 2px solid #ccc;
+  text-align: center;
