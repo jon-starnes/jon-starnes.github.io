@@ -42,12 +42,14 @@ async function fetchGeoJSON(url) {
         const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
         const data = await response.json();
+        console.log('Fetched GeoJSON:', data);
         return data;
     } catch (error) {
         console.error("Error fetching GeoJSON data:", error);
         return null;
     }
 }
+
 
 // Function to handle the user input and check if the point is inside any earthquake zone
 async function checkUserPoint() {
@@ -61,14 +63,21 @@ async function checkUserPoint() {
         return;
     }
 
-    const geoJsonData = await fetchGeoJSON(url);
-    if (!geoJsonData) {
-        outputElement.textContent = 'Failed to fetch GeoJSON data.';
-        return;
+    try {
+        const geoJsonData = await fetchGeoJSON(url);
+        if (!geoJsonData) {
+            outputElement.textContent = 'Failed to fetch GeoJSON data.';
+            return;
+        }
+
+        const checker = new CheckPointInPolygon();
+        const isInside = checker.isPointInsidePolygon(longitude, latitude, geoJsonData);
+
+        outputElement.textContent = `Point (${longitude}, ${latitude}) is inside a polygon: ${isInside}`;
+    } catch (error) {
+        console.error('Error checking point:', error);
+        outputElement.textContent = 'An error occurred while checking the point.';
     }
-
-    const checker = new CheckPointInPolygon();
-    const isInside = checker.isPointInsidePolygon(longitude, latitude, geoJsonData);
-
-    outputElement.textContent = `Point (${longitude}, ${latitude}) is inside a polygon: ${isInside}`;
 }
+
+
