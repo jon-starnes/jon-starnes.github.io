@@ -1,8 +1,7 @@
-This site is intended to display my various GitHub projects.
+# This site is to display GitHub projects
 
-Here you will find links to repositories containing code for 
-* (Project 1 Name)
-* (Project 2 Name)
-* (Project 3 Name)
+This website is intended to showcase various projects hosted on GitHub. 
 
-... and more!
+**Coming Soon!**
+
+Check back soon for more content and project demonstrations.
