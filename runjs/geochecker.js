@@ -1,6 +1,4 @@
-// Define your CheckPointInPolygon class
 class CheckPointInPolygon {
-    // Check if a point is inside the polygon using ray-casting algorithm
     checkPointInPolygon(x, y, cornersX, cornersY) {
         let i, j = cornersX.length - 1;
         let oddNodes = false;
@@ -22,10 +20,12 @@ class CheckPointInPolygon {
         if (geoJsonData && geoJsonData.features) {
             geoJsonData.features.forEach(feature => {
                 const geoData = feature.geometry;
+
                 if (geoData.type === "Polygon") {
                     const coordinates = geoData.coordinates[0];
                     const cornersX = coordinates.map(coord => coord[0]);
                     const cornersY = coordinates.map(coord => coord[1]);
+
                     if (this.checkPointInPolygon(x, y, cornersX, cornersY)) {
                         isInside = true;
                     }
@@ -36,23 +36,39 @@ class CheckPointInPolygon {
     }
 }
 
-// Function to fetch GeoJSON data and test the point-in-polygon check
-async function testPointInsidePolygon() {
-    const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
-    const outputElement = document.getElementById('output');
-
+// Function to fetch the GeoJSON data from USGS
+async function fetchGeoJSON(url) {
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error(`Error fetching data: ${response.status}`);
-        const geoJsonData = await response.json();
-
-        const checker = new CheckPointInPolygon();
-        const testX = -121.5; // Example longitude
-        const testY = 37.75;  // Example latitude
-
-        const isInside = checker.isPointInsidePolygon(testX, testY, geoJsonData);
-        outputElement.textContent = `Point (${testX}, ${testY}) is inside polygon: ${isInside}`;
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        const data = await response.json();
+        return data;
     } catch (error) {
-        outputElement.textContent = `Error: ${error.message}`;
+        console.error("Error fetching GeoJSON data:", error);
+        return null;
     }
+}
+
+// Function to handle the user input and check if the point is inside any earthquake zone
+async function checkUserPoint() {
+    const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
+    const longitude = parseFloat(document.getElementById('longitude').value);
+    const latitude = parseFloat(document.getElementById('latitude').value);
+    const outputElement = document.getElementById('output');
+
+    if (isNaN(longitude) || isNaN(latitude)) {
+        outputElement.textContent = 'Please enter valid coordinates.';
+        return;
+    }
+
+    const geoJsonData = await fetchGeoJSON(url);
+    if (!geoJsonData) {
+        outputElement.textContent = 'Failed to fetch GeoJSON data.';
+        return;
+    }
+
+    const checker = new CheckPointInPolygon();
+    const isInside = checker.isPointInsidePolygon(longitude, latitude, geoJsonData);
+
+    outputElement.textContent = `Point (${longitude}, ${latitude}) is inside a polygon: ${isInside}`;
 }
