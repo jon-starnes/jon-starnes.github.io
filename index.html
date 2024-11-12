@@ -3,32 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jon's Projects Demo Site</title>
-  <link rel="stylesheet" type="text/css" href="style/style.css">
+  <title>Jon's GitHub Projects</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body class="index-page">
   <header>
-    <h1 class="main-title">Jon's Projects Demo Site</h1>
-    <button id="menu-toggle" class="menu-toggle">Menu</button>
+    <h1 class="main-title">Jon's GitHub Projects</h1>
     <nav class="topbar-menu">
-      <a href="index.html">Home</a>
-      <a href="#">geoPoint Checker</a>
-      <a href="#">Other</a>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
     </nav>
   </header>
 
   <div class="wrapper">
-    <main>
+    <aside class="sidemenu1">
+      <ul>
+        <li><a href="#">Menu Item 1</a></li>
+        <li><a href="#">Menu Item 2</a></li>
+        <li><a href="#">Menu Item 3</a></li>
+      </ul>
+    </aside>
+    <main id="main-content">
       <div id="markdown-container"></div>
     </main>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.8/marked.min.js"></script>
-
   <footer>
     <p>Copyright &copy; 2023 Jon Starnes</p>
   </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.8/marked.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       fetch('pages/default.md')
@@ -38,13 +43,6 @@
           markdownContainer.innerHTML = marked(text);
         })
         .catch(error => console.error('Error fetching the Markdown file:', error));
-
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.querySelector('.topbar-menu');
-
-      menuToggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-      });
     });
   </script>
 </body>
