@@ -16,20 +16,31 @@ header {
 
 .topbar-menu {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: transparent;
+  flex-direction: column; /* Make the menu vertical */
+  align-items: flex-start;
+  background-color: #4B0082; /* Match the header background */
+  padding: 10px;
 }
 
 .topbar-menu a {
+  display: block;
   padding: 10px;
-  color: #F5DEB3; /* Wheat */
+  color: #FFD700; /* Gold */
   text-decoration: none;
-  transition: text-shadow 0.4s ease;
+  transition: background-color 0.3s ease;
+}
+
+.topbar-menu a:hover {
+  background-color: #5a5096; /* Darker shade of blue */
 }
 
 .topbar-menu a:hover {
   text-shadow: 0 0 6px #FFD700, 0 0 8px #FFD700, 0 0 13px #FFD700, 0 0 21px #FFD700;
+}
+
+.sidemenu1 {
+  /* ... other styles ... */
+  border-right: 2px solid #ccc;
 }
 
 .main-title {
