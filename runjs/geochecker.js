@@ -54,8 +54,11 @@ async function fetchGeoJSON(url) {
 // Function to handle the user input and check if the point is inside any earthquake zone
 async function checkUserPoint() {
     const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
-    const longitude = parseFloat(document.getElementById('longitude').value);
-    const latitude = parseFloat(document.getElementById('latitude').value);
+
+    const longitude = parseFloat(document.getElementById('longitude').value.trim());
+    const latitude = parseFloat(document.getElementById('latitude').value.trim());
+    /* const longitude = parseFloat(document.getElementById('longitude').value);
+    const latitude = parseFloat(document.getElementById('latitude').value); */
     const outputElement = document.getElementById('output');
 
     if (isNaN(longitude) || isNaN(latitude)) {
