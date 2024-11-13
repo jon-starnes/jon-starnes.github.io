@@ -6,6 +6,62 @@
   <title>Jon's GitHub Projects</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
+<body class="index-page">
+  <header>
+    <h1>USGS Earthquake GeoJSON Point Checker</h1>
+  </header>
+  <div class="wrapper">
+    <aside class="sidemenu1">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">About</a></li>
+        <li><a href="geochecker.html">GeoPoint Checker</a></li>
+      </ul>
+    </aside>
+    <main>
+      <p>Enter coordinates to check if they are inside any earthquake zone.</p>
+      <div>
+          <label for="longitude">Longitude:</label>
+          <input type="number" id="longitude" step="0.0001" placeholder="e.g., -121.5">
+          <label for="latitude">Latitude:</label>
+          <input type="number" id="latitude" step="0.0001" placeholder="e.g., 37.75">
+          <button id="checkPointButton">Check Point</button>
+      </div>
+      <textarea id="output" rows="5"></textarea>
+    </main>
+  </div>
+  <footer>
+    <p>Copyright &copy; 2023 Jon Starnes</p>
+  </footer>
+  <!-- Load your JavaScript files here -->
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.8/marked.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('pages/default.md')
+        .then(response => response.text())
+        .then(text => {
+          const markdownContainer = document.getElementById('markdown-container');
+          if (markdownContainer) {
+            markdownContainer.innerHTML = marked(text);
+          }
+        })
+        .catch(error => console.error('Error fetching the Markdown file:', error));
+
+      // Add event listener to the "Check Point" button
+      document.getElementById('checkPointButton').addEventListener('click', checkUserPoint);
+    });
+  </script>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jon's GitHub Projects</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
 
 <body class="index-page">
   <header>
@@ -57,3 +113,4 @@
   </script>
 </body>
 </html>
+ -->
