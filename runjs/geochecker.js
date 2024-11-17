@@ -147,50 +147,30 @@ async function checkUserPoint() {
     const outputElement = document.getElementById('output');
 
     if (isNaN(longitude) || isNaN(latitude)) {
-        outputElement.value = 'Please enter valid coordinates.';
+        outputElement.textContent = 'Please enter valid coordinates.';
         return;
     }
 
     try {
-        const usgsData = await fetchGeoJSON(url);
-        if (!usgsData) {
-            outputElement.value = 'Failed to fetch GeoJSON data.';
-            return;
-        }
-
-        // Parse USGS data into polygon format
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        const data = await response.json();
         const parser = new USGSDataParser();
-        const polygonData = parser.parseUSGSPoints(usgsData);
-        
-        // Use existing point in polygon checker
+        const polygonData = parser.parseUSGSPoints(data);
         const checker = new CheckPointInPolygon();
         const isInside = checker.isPointInsidePolygon(longitude, latitude, polygonData);
 
         if (isInside) {
-            // Find the matching earthquakes for detailed output
-            const nearbyQuakes = polygonData.features.filter(feature => {
-                const coords = feature.geometry.coordinates[0]; // First set of coordinates
-                // Check if point is within the created polygon
-                const cornersX = coords.map(coord => coord[0]);
-                const cornersY = coords.map(coord => coord[1]);
-                return checker.checkPointInPolygon(longitude, latitude, cornersX, cornersY);
-            });
-
-            let output = `Point (${longitude}, ${latitude}) is near ${nearbyQuakes.length} earthquake(s):\n\n`;
-            nearbyQuakes.forEach(quake => {
-                output += `Magnitude: ${quake.properties.mag}\n`;
-                output += `Location: ${quake.properties.place}\n`;
-                output += `Time: ${new Date(quake.properties.time).toLocaleString()}\n\n`;
-            });
-            outputElement.value = output;
+            outputElement.textContent = `Point (${longitude}, ${latitude}) is inside an earthquake zone.`;
         } else {
-            outputElement.value = `Point (${longitude}, ${latitude}) is not near any recent earthquakes.`;
+            outputElement.textContent = `Point (${longitude}, ${latitude}) is not near any recent earthquakes.`;
         }
     } catch (error) {
         console.error('Error checking point:', error);
-        outputElement.value = 'An error occurred while checking the point.';
+        outputElement.textContent = 'An error occurred while checking the point.';
     }
 }
+
 ///////////////////////////////////////////////////////////////////////////////
 
 
