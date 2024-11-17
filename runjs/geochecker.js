@@ -1,12 +1,22 @@
 class CheckPointInPolygon {
+    // Main raycasting algorithm required by isPointInsidePolygon
     checkPointInPolygon(x, y, cornersX, cornersY) {
         let i, j = cornersX.length - 1;
-        let oddNodes = false;
+        let oddNodes: boolean = false;
+        const epsilon = 1e-10; // Small value to account for floating-point errors
 
         for (i = 0; i < cornersX.length; i++) {
-            if (((cornersY[i] < y && cornersY[j] >= y) || (cornersY[j] < y && cornersY[i] >= y)) &&
-                (cornersX[i] <= x || cornersX[j] <= x)) {
-                if (cornersX[i] + (y - cornersY[i]) / (cornersY[j] - cornersY[i]) * (cornersX[j] - cornersX[i]) < x) {
+            // Check if the point lies exactly on a vertex
+            if (Math.abs(cornersX[i] - x) < epsilon && Math.abs(cornersY[i] - y) < epsilon) {
+                return true; // Point is exactly on a vertex
+            }
+            // Adjusted condition to include points on the edge
+            if (((cornersY[i] + epsilon < y && cornersY[j] + epsilon >= y) || (cornersY[j] + epsilon < y && cornersY[i] + epsilon >= y))) {
+                const intersectionX = cornersX[i] + ((y - cornersY[i]) * (cornersX[j] - cornersX[i])) / (cornersY[j] - cornersY[i]);
+                if (Math.abs(intersectionX - x) < epsilon) {
+                    return true; // Point is exactly on the edge
+                }
+                if (intersectionX < x - epsilon) {
                     oddNodes = !oddNodes;
                 }
             }
@@ -15,24 +25,46 @@ class CheckPointInPolygon {
         return oddNodes;
     }
 
-    isPointInsidePolygon(x, y, geoJsonData) {
-        let isInside = false;
-        if (geoJsonData && geoJsonData.features) {
-            geoJsonData.features.forEach(feature => {
-                const geoData = feature.geometry;
+    isPointInsidePolygon(x, y, geoObjects) {
+        let trueFalse: boolean = false;
 
-                if (geoData.type === "Polygon") {
-                    const coordinates = geoData.coordinates[0];
-                    const cornersX = coordinates.map(coord => coord[0]);
-                    const cornersY = coordinates.map(coord => coord[1]);
+        // Check if geoObjects and its all method are defined
+        if (geoObjects && typeof geoObjects.all === 'function') {
+            const geoShapes = geoObjects;
 
-                    if (this.checkPointInPolygon(x, y, cornersX, cornersY)) {
-                        isInside = true;
+            // Iterate over all geoShapes in the set
+            geoObjects.all().forEach(obj => {
+                // Access the geometry property
+                const geoData: GeoShape | any = obj.geometry;
+
+                if (geoData.type === "MultiPolygon") {
+                    // Create the GeoJSON string from the geometry property
+                    const geoJsonString = JSON.stringify(geoData);
+                    // Parse the MultiPolygon geometry
+                    const parsedPolygons = this.parseMultiPolygon(geoJsonString);
+
+                    // Check if the point is inside any of the parsed polygons
+                    parsedPolygons.forEach(polygon => {
+                        const cornersX = polygon.map(coord => coord.x);
+                        const cornersY = polygon.map(coord => coord.y);
+
+                        if (this.checkPointInPolygon(x, y, cornersX, cornersY) === true) {
+                            trueFalse = true;
+                        }
+                    });
+                } else if (geoData.type === "Polygon") {
+                    // If the geometry is a Polygon, use the parsePolygon function
+                    const polygon = this.parsePolygon(JSON.stringify(obj.geometry));
+                    const cornersX = polygon.map(coord => coord.x);
+                    const cornersY = polygon.map(coord => coord.y);
+
+                    if (this.checkPointInPolygon(x, y, cornersX, cornersY) === true) {
+                        trueFalse = true;
                     }
                 }
             });
         }
-        return isInside;
+        return trueFalse;
     }
 }
 
@@ -50,33 +82,116 @@ async function fetchGeoJSON(url) {
     }
 }
 
-// Function to handle the user input and check if the point is inside any earthquake zone
+
+////////////////////  USGS Data parser ////////////////////
+
+class USGSDataParser {
+    // Parse USGS GeoJSON data into polygon format
+    parseUSGSPoints(usgsData, radius = 0.1) { // radius in degrees for creating polygons around points
+        const polygonCollection = {
+            all: function() {
+                return this.features;
+            },
+            features: []
+        };
+
+        if (usgsData && usgsData.features) {
+            usgsData.features.forEach(feature => {
+                if (feature.geometry && feature.geometry.type === "Point") {
+                    const point = feature.geometry.coordinates;
+                    // Create a polygon object around each earthquake point
+                    const polygonFeature = this.createPolygonFeature(
+                        point[0], // longitude
+                        point[1], // latitude
+                        radius,
+                        feature.properties
+                    );
+                    polygonCollection.features.push(polygonFeature);
+                }
+            });
+        }
+
+        return polygonCollection;
+    }
+
+    // Create a polygon feature around a point
+    createPolygonFeature(centerX, centerY, radius, properties) {
+        const points = 32; // number of points to create circular polygon
+        const coordinates = [];
+
+        // Create circular polygon points
+        for (let i = 0; i < points; i++) {
+            const angle = (i / points) * 2 * Math.PI;
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            coordinates.push([x, y]);
+        }
+        // Close the polygon by repeating the first point
+        coordinates.push(coordinates[0]);
+
+        return {
+            geometry: {
+                type: "Polygon",
+                coordinates: [coordinates]
+            },
+            properties: properties // original USGS feature properties
+        };
+    }
+}
+
+// Updated checkUserPoint function
 async function checkUserPoint() {
     const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
-    const longitude = parseFloat(document.getElementById('longitude').value);
-    const latitude = parseFloat(document.getElementById('latitude').value);
+    const longitude = parseFloat(document.getElementById('longitude').value.trim());
+    const latitude = parseFloat(document.getElementById('latitude').value.trim());
     const outputElement = document.getElementById('output');
 
     if (isNaN(longitude) || isNaN(latitude)) {
-        outputElement.textContent = 'Please enter valid coordinates.';
+        outputElement.value = 'Please enter valid coordinates.';
         return;
     }
 
     try {
-        const geoJsonData = await fetchGeoJSON(url);
-        if (!geoJsonData) {
-            outputElement.textContent = 'Failed to fetch GeoJSON data.';
+        const usgsData = await fetchGeoJSON(url);
+        if (!usgsData) {
+            outputElement.value = 'Failed to fetch GeoJSON data.';
             return;
         }
 
+        // Parse USGS data into polygon format
+        const parser = new USGSDataParser();
+        const polygonData = parser.parseUSGSPoints(usgsData);
+        
+        // Use existing point in polygon checker
         const checker = new CheckPointInPolygon();
-        const isInside = checker.isPointInsidePolygon(longitude, latitude, geoJsonData);
+        const isInside = checker.isPointInsidePolygon(longitude, latitude, polygonData);
 
-        outputElement.textContent = `Point (${longitude}, ${latitude}) is inside a polygon: ${isInside}`;
+        if (isInside) {
+            // Find the matching earthquakes for detailed output
+            const nearbyQuakes = polygonData.features.filter(feature => {
+                const coords = feature.geometry.coordinates[0]; // First set of coordinates
+                // Check if point is within the created polygon
+                const cornersX = coords.map(coord => coord[0]);
+                const cornersY = coords.map(coord => coord[1]);
+                return checker.checkPointInPolygon(longitude, latitude, cornersX, cornersY);
+            });
+
+            let output = `Point (${longitude}, ${latitude}) is near ${nearbyQuakes.length} earthquake(s):\n\n`;
+            nearbyQuakes.forEach(quake => {
+                output += `Magnitude: ${quake.properties.mag}\n`;
+                output += `Location: ${quake.properties.place}\n`;
+                output += `Time: ${new Date(quake.properties.time).toLocaleString()}\n\n`;
+            });
+            outputElement.value = output;
+        } else {
+            outputElement.value = `Point (${longitude}, ${latitude}) is not near any recent earthquakes.`;
+        }
     } catch (error) {
         console.error('Error checking point:', error);
-        outputElement.textContent = 'An error occurred while checking the point.';
+        outputElement.value = 'An error occurred while checking the point.';
     }
 }
+///////////////////////////////////////////////////////////////////////////////
+
 
 
