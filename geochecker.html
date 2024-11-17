@@ -8,41 +8,51 @@
 </head>
 
 <body class="index-page">
+  <!-- Header Section -->
   <header>
     <h1>USGS Earthquake GeoJSON Point Checker</h1>
   </header>
 
+  <!-- Main Content Wrapper -->
   <div class="wrapper">
+    <!-- Side Menu -->
     <aside class="sidemenu1">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="index.html">About</a></li>
+        <li><a href="about.html">About</a></li>
         <li><a href="geochecker.html">GeoPoint Checker</a></li>
       </ul>
     </aside>
 
+    <!-- Main Content Area -->
     <main>
-      <p>Enter coordinates to check if they are inside any earthquake zone.</p>
+      <p>Enter coordinates to check if they are inside any earthquake zone:</p>
       <div>
-          <label for="longitude">Longitude:</label>
-          <input type="number" id="longitude" step="0.0001" placeholder="e.g., -121.5">
-          <label for="latitude">Latitude:</label>
-          <input type="number" id="latitude" step="0.0001" placeholder="e.g., 37.75">
-          <button onclick="checkUserPoint()">Check Point</button>
+        <label for="longitude">Longitude:</label>
+        <input type="number" id="longitude" step="0.0001" placeholder="e.g., -121.5">
+        <label for="latitude">Latitude:</label>
+        <input type="number" id="latitude" step="0.0001" placeholder="e.g., 37.75">
+        <button onclick="checkUserPoint()">Check Point</button>
       </div>
 
+      <!-- Output Area -->
       <pre id="output"></pre>
+
+      <!-- Markdown Container (if needed) -->
+      <div id="markdown-container"></div>
     </main>
   </div>
 
+  <!-- Footer Section -->
   <footer>
-    <p>Copyright &copy; 2023 Jon Starnes</p>
+    <p>&copy; 2023 Jon Starnes</p>
   </footer>
 
-  <!-- Load your JavaScript files here -->
+  <!-- JavaScript Files -->
   <script src="script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.8/marked.min.js"></script>
   <script>
+    // Fetch and render Markdown content
     document.addEventListener('DOMContentLoaded', () => {
       fetch('pages/default.md')
         .then(response => response.text())
