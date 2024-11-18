@@ -143,28 +143,46 @@ class USGSDataParser {
 
 // Updated checkUserPoint function
 async function checkUserPoint() {
+    console.log("Button clicked, starting check...");
+
     const longitude = parseFloat(document.getElementById('longitude').value.trim());
     const latitude = parseFloat(document.getElementById('latitude').value.trim());
     const outputElement = document.getElementById('output');
 
+    // Check if inputs are valid
     if (isNaN(longitude) || isNaN(latitude)) {
+        console.log("Invalid coordinates entered.");
         outputElement.textContent = 'Please enter valid coordinates.';
         return;
     }
 
-    const geoJsonData = await fetchGeoJsonFromNominatim();
-    if (!geoJsonData) {
-        outputElement.textContent = 'Failed to fetch GeoJSON data for San Francisco.';
-        return;
+    console.log(`Longitude: ${longitude}, Latitude: ${latitude}`);
+    outputElement.textContent = 'Checking coordinates...';
+
+    // Fetch GeoJSON data
+    try {
+        const geoJsonData = await fetchGeoJsonFromNominatim();
+        if (!geoJsonData) {
+            console.error("Failed to fetch GeoJSON data.");
+            outputElement.textContent = 'Failed to fetch GeoJSON data for San Francisco. Please try again later.';
+            return;
+        }
+
+        console.log("GeoJSON data fetched successfully.");
+
+        // Check if point is inside the polygon
+        const checker = new CheckPointInPolygon();
+        const isInside = checker.isPointInsidePolygon(longitude, latitude, geoJsonData);
+
+        outputElement.textContent = isInside
+            ? `Point (${longitude}, ${latitude}) is inside San Francisco.`
+            : `Point (${longitude}, ${latitude}) is outside San Francisco.`;
+    } catch (error) {
+        console.error("Error during point check:", error);
+        outputElement.textContent = 'An error occurred while checking the point.';
     }
-
-    const checker = new CheckPointInPolygon();
-    const isInside = checker.isPointInsidePolygon(longitude, latitude, geoJsonData);
-
-    outputElement.textContent = isInside
-        ? `Point (${longitude}, ${latitude}) is inside San Francisco.`
-        : `Point (${longitude}, ${latitude}) is outside San Francisco.`;
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////
 
