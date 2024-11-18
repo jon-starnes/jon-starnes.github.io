@@ -48,7 +48,7 @@ input {
 /* Output Area (consolidated) */
 #output {
     background-color: #2F3136; /* Light Gray Background */
-    color: #1C1C1E; /* #C0C0C0 Silver Text */
+    color: #C0C0C0; /* #C0C0C0 Silver Text */
     padding: 20px;
     border-radius: 5px;
     margin-top: 20px;
@@ -118,7 +118,7 @@ aside ul li a:hover {
 main {
   flex: 1;
   padding: 10px;
-  background-color: #fff; /* White background for content area */
+  background-color: #2F3136; /* White background for content area */
 }
 
 #markdown-container {
