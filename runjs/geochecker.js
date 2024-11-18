@@ -1,20 +1,72 @@
+async function fetchGeoJsonFromNominatim() {
+    const url = 'https://nominatim.openstreetmap.org/search.php?q=San+Francisco&polygon_geojson=1&format=json';
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        const data = await response.json();
+        if (data.length > 0) {
+            const geoJson = data[0].geojson;
+            console.log('San Francisco GeoJSON:', geoJson);
+            return geoJson; // Return the raw GeoJSON object
+        }
+        return null;
+    } catch (error) {
+        console.error("Error fetching GeoJSON data:", error);
+        return null;
+    }
+}
+
+
+
+////// Check Point in Polygon
 class CheckPointInPolygon {
-    // Main raycasting algorithm required by isPointInsidePolygon
+    // Check if a point is inside a Polygon or MultiPolygon
+    isPointInsidePolygon(x, y, geoJson) {
+        if (!geoJson || !geoJson.coordinates) return false;
+
+        const geometry = geoJson;
+        let isInside = false;
+
+        if (geometry.type === "MultiPolygon") {
+            // Handle MultiPolygon
+            geometry.coordinates.forEach(polygonCoords => {
+                const coords = polygonCoords[0];
+                const cornersX = coords.map(coord => coord[0]);
+                const cornersY = coords.map(coord => coord[1]);
+                if (this.checkPointInPolygon(x, y, cornersX, cornersY)) {
+                    isInside = true;
+                }
+            });
+        } else if (geometry.type === "Polygon") {
+            // Handle single Polygon
+            const coords = geometry.coordinates[0];
+            const cornersX = coords.map(coord => coord[0]);
+            const cornersY = coords.map(coord => coord[1]);
+            if (this.checkPointInPolygon(x, y, cornersX, cornersY)) {
+                isInside = true;
+            }
+        }
+        return isInside;
+    }
+
+    // Ray-casting algorithm for checking if a point is inside a polygon
     checkPointInPolygon(x, y, cornersX, cornersY) {
         let i, j = cornersX.length - 1;
         let oddNodes = false;
-        const epsilon = 1e-10; // Small value to account for floating-point errors
+        const epsilon = 1e-10;
 
         for (i = 0; i < cornersX.length; i++) {
             if (Math.abs(cornersX[i] - x) < epsilon && Math.abs(cornersY[i] - y) < epsilon) {
                 return true;
             }
-            if (((cornersY[i] + epsilon < y && cornersY[j] + epsilon >= y) || (cornersY[j] + epsilon < y && cornersY[i] + epsilon >= y))) {
+            if (((cornersY[i] < y && cornersY[j] >= y) || (cornersY[j] < y && cornersY[i] >= y)) &&
+                (cornersX[i] <= x || cornersX[j] <= x)) {
                 const intersectionX = cornersX[i] + ((y - cornersY[i]) * (cornersX[j] - cornersX[i])) / (cornersY[j] - cornersY[i]);
                 if (Math.abs(intersectionX - x) < epsilon) {
                     return true;
                 }
-                if (intersectionX < x - epsilon) {
+                if (intersectionX < x) {
                     oddNodes = !oddNodes;
                 }
             }
@@ -22,38 +74,8 @@ class CheckPointInPolygon {
         }
         return oddNodes;
     }
-
-    isPointInsidePolygon(x, y, geoObjects) {
-        let isInside = false;
-
-        if (geoObjects && typeof geoObjects.all === 'function') {
-            geoObjects.all().forEach(obj => {
-                const geoData = obj.geometry;
-
-                if (geoData.type === "MultiPolygon") {
-                    const geoJsonString = JSON.stringify(geoData);
-                    const parsedPolygons = this.parseMultiPolygon(geoJsonString);
-
-                    parsedPolygons.forEach(polygon => {
-                        const cornersX = polygon.map(coord => coord.x);
-                        const cornersY = polygon.map(coord => coord.y);
-                        if (this.checkPointInPolygon(x, y, cornersX, cornersY)) {
-                            isInside = true;
-                        }
-                    });
-                } else if (geoData.type === "Polygon") {
-                    const polygon = this.parsePolygon(JSON.stringify(obj.geometry));
-                    const cornersX = polygon.map(coord => coord.x);
-                    const cornersY = polygon.map(coord => coord.y);
-                    if (this.checkPointInPolygon(x, y, cornersX, cornersY)) {
-                        isInside = true;
-                    }
-                }
-            });
-        }
-        return isInside;
-    }
 }
+
 
 //////////
 
@@ -121,7 +143,6 @@ class USGSDataParser {
 
 // Updated checkUserPoint function
 async function checkUserPoint() {
-    const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
     const longitude = parseFloat(document.getElementById('longitude').value.trim());
     const latitude = parseFloat(document.getElementById('latitude').value.trim());
     const outputElement = document.getElementById('output');
@@ -131,28 +152,18 @@ async function checkUserPoint() {
         return;
     }
 
-    try {
-        const usgsData = await fetchGeoJSON(url);
-        if (!usgsData) {
-            outputElement.textContent = 'Failed to fetch GeoJSON data.';
-            return;
-        }
-
-        const parser = new USGSDataParser();
-        const polygonData = parser.parseUSGSPoints(usgsData);
-
-        const checker = new CheckPointInPolygon();
-        const isInside = checker.isPointInsidePolygon(longitude, latitude, polygonData);
-
-        if (isInside) {
-            outputElement.textContent = `Point (${longitude}, ${latitude}) is inside an earthquake zone.`;
-        } else {
-            outputElement.textContent = `Point (${longitude}, ${latitude}) is not near any recent earthquakes.`;
-        }
-    } catch (error) {
-        console.error('Error checking point:', error);
-        outputElement.textContent = 'An error occurred while checking the point.';
+    const geoJsonData = await fetchGeoJsonFromNominatim();
+    if (!geoJsonData) {
+        outputElement.textContent = 'Failed to fetch GeoJSON data for San Francisco.';
+        return;
     }
+
+    const checker = new CheckPointInPolygon();
+    const isInside = checker.isPointInsidePolygon(longitude, latitude, geoJsonData);
+
+    outputElement.textContent = isInside
+        ? `Point (${longitude}, ${latitude}) is inside San Francisco.`
+        : `Point (${longitude}, ${latitude}) is outside San Francisco.`;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
