@@ -84,30 +84,36 @@ footer {
   padding: 20px;
 }
 
+/* Side Menu */
 aside {
-  width: 200px;
-  background-color: #f0f0f0; /* Light gray background for side menu */
-  color: #333; /* Dark gray text */
-  border-right: 2px solid #ccc;
-  padding: 10px;
+    width: 200px;
+    background-color: #1C1C1E; /* Dark Gray to match the header and footer */
+    color: #D1D5DB; /* Light Gray Text */
+    border-right: 2px solid #3A3B3C; /* Cool Gray Divider */
+    padding: 20px;
 }
 
+/* Side Menu Links */
 aside ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 aside ul li a {
-  display: block;
-  padding: 10px;
-  color: #333;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
+    display: block;
+    padding: 10px;
+    color: #D1D5DB; /* Light Gray Text */
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
 }
 
+/* Hover Effect for Links */
 aside ul li a:hover {
-  background-color: #e6e6e6; /* Lighter gray for hover effect */
+    background-color: #2F3136; /* Slightly lighter Gray for hover effect */
+    color: #FFFFFF; /* White text on hover */
 }
+
 
 main {
   flex: 1;
